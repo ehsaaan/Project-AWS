@@ -1,0 +1,11 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  MyLambdaFunction:
+    Type: 'AWS::Lambda::Function'
+    Properties:
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.8
+      Code:
+        S3Bucket: <your-code-bucket>
+        S3Key: <your-code-object-key>
+      Timeout: 30
