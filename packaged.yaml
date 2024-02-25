@@ -9,17 +9,45 @@ Resources:
         S3Bucket: mvp-aws-bucket
         S3Key: lambda_function.zip
       Timeout: 30
+      Role:
+        Fn::GetAtt:
+        - MyLambdaExecutionRole
+        - Arn
     Metadata:
       SamResourceId: MyLambdaFunction
   MyS3Bucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: my-s3-bucket-name
+      BucketName: mvp-trigger-noti-bucket
       NotificationConfiguration:
         LambdaConfigurations:
         - Event: s3:ObjectCreated:*
           Function:
             Fn::GetAtt:
-            - arn:aws:lambda:us-east-1:197191051170:function:MVPLambdaFunction
+            - MyLambdaFunction
+            - Arn
     Metadata:
       SamResourceId: MyS3Bucket
+  MyLambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service: lambda.amazonaws.com
+          Action: sts:AssumeRole
+      Policies:
+      - PolicyName: LambdaExecutionPolicy
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - logs:CreateLogGroup
+            - logs:CreateLogStream
+            - logs:PutLogEvents
+            Resource: arn:aws:logs:*:*:*
+    Metadata:
+      SamResourceId: MyLambdaExecutionRole
