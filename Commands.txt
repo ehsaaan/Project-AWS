@@ -1,0 +1,13 @@
+sam package --template-file myTemplate.yaml --output-template-file packaged.yaml --s3-bucket mvp-aws-bucket
+
+sam deploy --template-file packaged.yaml --stack-name mvp-stack --capabilities CAPABILITY_IAM
+
+aws lambda create-function \
+  --function-name MVPLambdaFunction \
+  --runtime python3.8 \
+  --handler lambda_function.lambda_handler \
+  --code S3Bucket=mvp-aws-bucket,S3Key=lambda_function.zip \
+  --role arn:aws:iam::123456789012:role/lambda-execution-role
+
+
+aws lambda create-function --function-name MVPLambdaFunction --runtime python3.8 --handler lambda_function.lambda_handler --code S3Bucket=mvp-aws-bucket,S3Key=lambda_function.zip --role arn:aws:iam::123456789012:role/lambda-execution-role

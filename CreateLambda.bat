@@ -1,0 +1,1 @@
+aws lambda create-function --function-name MVPLambdaFunction --runtime python3.8 --handler lambda_function.lambda_handler --code S3Bucket=mvp-aws-bucket,S3Key=lambda_function.zip --role arn:aws:iam::197191051170:role/MyLambdaRole

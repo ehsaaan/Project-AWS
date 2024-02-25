@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Resources:
   MyLambdaFunction:
-    Type: 'AWS::Lambda::Function'
+    Type: AWS::Lambda::Function
     Properties:
       Handler: lambda_function.lambda_handler
       Runtime: python3.8
@@ -9,12 +9,17 @@ Resources:
         S3Bucket: mvp-aws-bucket
         S3Key: lambda_function.zip
       Timeout: 30
-
+    Metadata:
+      SamResourceId: MyLambdaFunction
   MyS3Bucket:
-    Type: 'AWS::S3::Bucket'
+    Type: AWS::S3::Bucket
     Properties:
       BucketName: my-s3-bucket-name
       NotificationConfiguration:
         LambdaConfigurations:
-          - Event: 's3:ObjectCreated:*'
-            Function: !GetAtt arn:aws:lambda:us-east-1:197191051170:function:MVPLambdaFunction
+        - Event: s3:ObjectCreated:*
+          Function:
+            Fn::GetAtt:
+            - arn:aws:lambda:us-east-1:197191051170:function:MVPLambdaFunction
+    Metadata:
+      SamResourceId: MyS3Bucket
