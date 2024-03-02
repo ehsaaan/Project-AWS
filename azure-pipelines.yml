@@ -20,9 +20,9 @@ steps:
     echo See https://aka.ms/yaml
     sudo apt-get update
     sudo apt-get install -y awscli  # Install AWS CLI
-    curl -Lo /tmp/sam-installation https://raw.githubusercontent.com/aws/aws-sam-cli/main/installation.sh
-    chmod +x /tmp/sam-installation
-    sudo /tmp/sam-installation --verbose --interactive  # Install SAM CLI
+    wget https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-arm64.zip -O /tmp/aws-sam-cli-linux-arm64.zip
+    unzip /tmp/aws-sam-cli-linux-arm64.zip -d /tmp
+    sudo /tmp/aws-sam-cli/install
   displayName: 'Install dependencies'
 
 - script: |
