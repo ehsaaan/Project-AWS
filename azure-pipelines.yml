@@ -22,7 +22,7 @@ steps:
     sudo apt-get install -y awscli  # Install AWS CLI
     wget https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-arm64.zip -O /tmp/aws-sam-cli-linux-arm64.zip
     unzip /tmp/aws-sam-cli-linux-arm64.zip -d /tmp
-    sudo /tmp/aws-sam-cli/install
+    /tmp/aws-sam-cli/install
   displayName: 'Install dependencies'
 
 - script: |
