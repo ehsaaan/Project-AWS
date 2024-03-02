@@ -1,0 +1,35 @@
+# Starter pipeline
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+    addToPath: true
+    architecture: 'x64'
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+    sudo apt-get update
+    sudo apt-get install -y awscli  # Install AWS CLI
+    curl -Lo /tmp/sam-installation https://raw.githubusercontent.com/aws/aws-sam-cli/main/installation.sh
+    chmod +x /tmp/sam-installation
+    sudo /tmp/sam-installation --verbose --interactive  # Install SAM CLI
+  displayName:  'Install dependencies'
+
+- script: |
+    aws configure set aws_access_key_id AKIAS32MAU6RIYVOTS77
+    aws configure set aws_secret_access_key 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
+    aws configure set default.region us-east-1
+  displayName: 'Configure AWS credentials'
