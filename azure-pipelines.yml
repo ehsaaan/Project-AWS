@@ -1,12 +1,4 @@
 # Starter pipeline
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: '3.x'
-    addToPath: true
-    architecture: 'x64'
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
 
 trigger:
 - main
@@ -15,6 +7,11 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+    addToPath: true
+    architecture: 'x64'
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
 
@@ -26,7 +23,7 @@ steps:
     curl -Lo /tmp/sam-installation https://raw.githubusercontent.com/aws/aws-sam-cli/main/installation.sh
     chmod +x /tmp/sam-installation
     sudo /tmp/sam-installation --verbose --interactive  # Install SAM CLI
-  displayName:  'Install dependencies'
+  displayName: 'Install dependencies'
 
 - script: |
     aws configure set aws_access_key_id AKIAS32MAU6RIYVOTS77
